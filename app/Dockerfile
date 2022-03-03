@@ -14,14 +14,14 @@ RUN dotnet tool install --global dotnet-sonarscanner
 ENV PATH="${PATH}:/root/.dotnet/tools"
 RUN dotnet sonarscanner begin /k:"dotnetsonar" /d:sonar.host.url=http://3.14.82.98:9000 /d:sonar.login=d6bf03d1f9ce082be45a82504474affdc13bce13
 
-RUN dotnet restore
+#RUN dotnet restore
 
 #RUN dotnet sonarscanner end /d:sonar.login=d6bf03d1f9ce082be45a82504474affdc13bce13
 # Copy everything else and build website
 COPY SampleWebApp/. .
 
 COPY . .
-RUN dotnet publish -c release -o /WebApp --no-restore
+#RUN dotnet publish -c release -o /WebApp --no-restore
 
 RUN dotnet sonarscanner end /d:sonar.login=d6bf03d1f9ce082be45a82504474affdc13bce13
 # Final stage / image

@@ -1,6 +1,6 @@
 
 
-FROM mcr.microsoft.com/dotnet/core/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 
 RUN apt-get update -y
 RUN apt-get install default-jdk -y

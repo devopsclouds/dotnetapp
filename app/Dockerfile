@@ -16,11 +16,14 @@ RUN dotnet sonarscanner begin /k:"dotnetsonar" /d:sonar.host.url=http://3.14.82.
 
 RUN dotnet restore
 
-RUN dotnet sonarscanner end /d:sonar.login=d6bf03d1f9ce082be45a82504474affdc13bce13
+#RUN dotnet sonarscanner end /d:sonar.login=d6bf03d1f9ce082be45a82504474affdc13bce13
 # Copy everything else and build website
 COPY SampleWebApp/. .
+
+COPY . .
 RUN dotnet publish -c release -o /WebApp --no-restore
 
+RUN dotnet sonarscanner end /d:sonar.login=d6bf03d1f9ce082be45a82504474affdc13bce13
 # Final stage / image
 FROM mcr.microsoft.com/dotnet/aspnet:3.1
 WORKDIR /WebApp

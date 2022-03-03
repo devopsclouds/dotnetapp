@@ -1,6 +1,6 @@
 
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 
 RUN apt-get update -y
 RUN apt-get install default-jdk -y
@@ -22,7 +22,7 @@ COPY SampleWebApp/. .
 RUN dotnet publish -c release -o /WebApp --no-restore
 
 # Final stage / image
-FROM mcr.microsoft.com/dotnet/aspnet:3.0
+FROM mcr.microsoft.com/dotnet/aspnet:3.1
 WORKDIR /WebApp
 COPY --from=build /WebApp ./
 ENTRYPOINT ["dotnet", "SampleWebApp.dll"]

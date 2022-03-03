@@ -1,6 +1,6 @@
 
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:5.0 AS build
 
 RUN apt-get update -y
 RUN apt-get install default-jdk -y
@@ -25,7 +25,7 @@ RUN dotnet publish -c release -o /WebApp --no-restore
 
 RUN dotnet sonarscanner end /d:sonar.login=d6bf03d1f9ce082be45a82504474affdc13bce13
 # Final stage / image
-FROM mcr.microsoft.com/dotnet/aspnet:3.1
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /WebApp
 COPY --from=build /WebApp ./
 ENTRYPOINT ["dotnet", "SampleWebApp.dll"]

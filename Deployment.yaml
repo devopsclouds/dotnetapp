@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: dotnetapp
-        image: 
+        image: docker89781/dotnet2:$(Build.BuildId)
         ports:
         - containerPort: 8080
       

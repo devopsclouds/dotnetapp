@@ -1,0 +1,60 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+variables:
+- name: azureSubscriptionid
+  value: dev
+- group: secrets-webapps
+
+
+
+trigger:
+  branches:
+    include:
+    - refs/heads/dev
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: refs/heads/dev
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+    vmImage: windows-2019
+  steps:
+  - checkout: self
+  - task: UseDotNet@2
+    displayName: Use .NET Core sdk 6.0.x
+    inputs:
+      version: 6.0.x
+  - task: DotNetCoreCLI@2
+    displayName: dotnet restore
+    inputs:
+      command: restore
+      projects: '**/*.csproj'
+      feedRestore: 892212e1-295a-41ef-b646-8b4373693646
+      nugetConfigPath: HelloWorldApp.Web.csproj
+  - task: DotNetCoreCLI@2
+    displayName: dotnet build
+    inputs:
+      projects: '**/*.csproj'
+  - task: DotNetCoreCLI@2
+    displayName: dotnet publish
+    inputs:
+      command: publish
+      projects: '**/*.csproj'
+      arguments: --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+  - task: AzureRmWebAppDeployment@4
+    displayName: 'Wbappdeploy'
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: '$(azureSubscriptionid)'
+      appType: 'webApp'
+      WebAppName: '$(devsecret)'
+      packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+

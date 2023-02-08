@@ -41,9 +41,10 @@ jobs:
 
     
       with:
-        command: cp
-        source: artifacts
-        destination: s3://artifactbucket8978/folder
+      
+        
         aws-region: 'ap-south-1'
         aws-access-key-id: 'AKIA5UQQIXW63FYQ5CXV'
         aws-secret-access-key: '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'  
+      
+    - run: aws s3 sync ./artifacts s3://artifactbucket8978 

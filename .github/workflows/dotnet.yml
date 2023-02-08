@@ -38,7 +38,9 @@ jobs:
       name: Upload to S3
 
       with:
-        aws_key_id: 'AKIA5UQQIXW63FYQ5CXV'
-        aws_secret_access_key: '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'
+        args: --acl public-read --follow-symlinks --delete
+      env:
         AWS_S3_BUCKET: 'artifactbucket8978'
-        source_dir: 'artifacts'
+        AWS_ACCESS_KEY_ID: 'AKIA5UQQIXW63FYQ5CXV'
+        AWS_SECRET_ACCESS_KEY: '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'
+        SOURCE_DIR: 'artifacts'      

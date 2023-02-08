@@ -33,4 +33,4 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Copy Artifacts
-      run: mkdir artifacts && cp app/SampleWebApp/bin/Debug/net5.0/*.dll artifacts
+      run: mkdir artifacts && cp /home/runner/work/dotnetapp/dotnetapp/app/SampleWebApp/bin/Debug/net5.0/*.dll artifacts

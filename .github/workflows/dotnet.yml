@@ -34,17 +34,16 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Copy Artifacts
       run: mkdir artifacts && cp /home/runner/work/dotnetapp/dotnetapp/app/SampleWebApp/bin/Debug/net5.0/*.dll artifacts
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        path: artifacts
+  
+      
     - uses: aws-actions/configure-aws-credentials@v1
       name: Upload to S3
 
+    
       with:
-        args: --acl public-read --follow-symlinks --delete
-      env:
-        AWS_S3_BUCKET: 'artifactbucket8978'
-        AWS_ACCESS_KEY_ID: 'AKIA5UQQIXW63FYQ5CXV'
-        AWS_SECRET_ACCESS_KEY: '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'
+        command: cp
+        source: artifacts
+        destination: s3://artifactbucket8978/folder   
+        aws-access-key-id: 'AKIA5UQQIXW63FYQ5CXV'
+        aws-secret-access-key: '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'
         SOURCE_DIR: 'artifacts'      

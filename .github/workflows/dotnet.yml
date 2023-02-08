@@ -34,7 +34,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Copy Artifacts
       run: mkdir artifacts && cp /home/runner/work/dotnetapp/dotnetapp/app/SampleWebApp/bin/Debug/net5.0/*.dll artifacts
-    - uses: ./
+    - uses: actions/s3-upload-github-action@v2
       name: Upload to S3
 
       with:

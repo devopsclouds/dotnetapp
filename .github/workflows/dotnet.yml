@@ -40,5 +40,5 @@ jobs:
       with:
         aws_key_id: 'AKIA5UQQIXW63FYQ5CXV'
         aws_secret_access_key: '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'
-        aws_bucket: 'artifactbucket8978'
+        AWS_S3_BUCKET: 'artifactbucket8978'
         source_dir: 'artifacts'

@@ -21,6 +21,7 @@ jobs:
       with:
         image: docker89781/dotnetappgithub
         tags: latest
+        dockerfile: Dockerfile
         registry: docker.io
         username: docker89781
         password: Cloud@8978

@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY * /app
+COPY * ./
 #COPY SampleWebApp/*.csproj .
 RUN ls
 RUN dotnet restore

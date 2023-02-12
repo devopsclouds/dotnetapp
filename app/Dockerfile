@@ -3,13 +3,13 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY * ./
-#COPY SampleWebApp/*.csproj .
-RUN ls
+#COPY * ./
+COPY app/SampleWebApp/*.csproj .
+#RUN ls
 RUN dotnet restore
 
 # Copy everything else and build website
-COPY SampleWebApp/. .
+COPY app/SampleWebApp/. .
 RUN dotnet publish -c release -o /WebApp --no-restore
 
 # Final stage / image

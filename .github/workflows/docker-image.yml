@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: app
+        working-directory: app//SampleWebApp
+
     steps:
     - uses: actions/checkout@v3
     - uses: mr-smithers-excellent/docker-build-push@v5

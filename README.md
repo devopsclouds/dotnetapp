@@ -1,7 +1,7 @@
 # samplewebapp
 ASP.NET Web application deployment on Azure Kubernetes Services
 
-Azure Kubernetes Services:
+github actions and azure devops
 
 Agenda:
 	- ASP.NET Web application deployment on Azure Kubernetes Services

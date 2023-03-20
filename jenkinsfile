@@ -1,0 +1,46 @@
+pipeline {
+
+  agent { label 'build-agent' }
+  
+  tools
+    {
+        dockerTool 'docker'
+    }
+  environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred-devops8978')
+		SONAR_SECRET_TEST=credentials('sonarproject')
+	}
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git url:'https://github.com/devopsclouds/dotnetapp.git', branch:'develop'
+        
+      }
+    }
+    
+          stage('Login') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+		
+		   stage('Build Docker image and sonarscan  ') {
+
+			steps {
+			    
+                
+			    
+				sh 'docker build --build-arg SONAR_TOKEN=$SONAR_SECRET_TEST --build-arg SONAR_PRJ_KEY=dotnetproject -t $DOCKERHUB_CREDENTIALS_USR/dotnetjenkinsapp:latest .'
+				 
+				sh 'docker push $DOCKERHUB_CREDENTIALS_USR/dotnetjenkinsapp:latest'
+			    
+			}
+		}
+        
+        
+     
+    
+}
+}

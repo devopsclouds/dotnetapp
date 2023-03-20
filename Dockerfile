@@ -1,7 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 
-ARG SONAR_TOKEN
-ARG SONAR_PRJ_KEY
+ARG SONAR_TOKEN=token
+ARG SONAR_PRJ_KEY=key
+ENV SONAR_HOST http://192.168.0.10/
 ## Install Java, because the sonarscanner needs it.
 RUN mkdir /usr/share/man/man1/
 RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y openjdk-11-jre
